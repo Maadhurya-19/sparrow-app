@@ -24,7 +24,7 @@ env:
   VITE_BASE_URL: ${{ vars.VITE_BASE_URL }}
   VITE_SPARROW_LINKEDIN: ${{ vars.VITE_SPARROW_LINKEDIN }}
   VITE_WEB_SOCKET_IO_API_URL: ${{ vars.VITE_WEB_SOCKET_IO_API_URL }}
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: false  # Changed to false for better security
   CI: false
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20.x"
+          node-version: "16.x"  # Updated Node.js version to 16.x
 
       - name: Install Windows SDK
         run: Invoke-WebRequest -Uri https://aka.ms/winsdk/10/latest/SdkSetup.exe -OutFile $env:TEMP\SdkSetup.exe
@@ -81,7 +81,7 @@ jobs:
 
       - name: msi sig
         run: Get-Content D:\a\sparrow-app\sparrow-app\apps\@sparrow-desktop\src-tauri\target\debug\bundle\msi\*.sig
-    
+
       - name: nsis sig
         run: Get-Content D:\a\sparrow-app\sparrow-app\apps\@sparrow-desktop\src-tauri\target\debug\bundle\nsis\*.sig
 
@@ -126,7 +126,7 @@ jobs:
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: "20.8"
+          node-version: "16.x"  # Same Node.js version update as Windows setup
 
       - name: Update updater endpoint in tauri.conf.json file
         run: |
